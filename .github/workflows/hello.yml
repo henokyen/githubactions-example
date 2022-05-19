@@ -42,3 +42,10 @@ jobs:
         env | sort
         echo "running ls"
         ls $HOME
+  check python syntax
+    runs-on: ubuntu-lates
+    steps:
+    - name: Pyflakes Syntax Checker
+      # You may pin to the exact commit or the version.
+      # uses: lgeiger/pyflakes-action@b3972d29b811eabc23aa239eaaea9e1da5001f8d
+      uses: lgeiger/pyflakes-action@v1.0.1
