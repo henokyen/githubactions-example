@@ -42,7 +42,7 @@ jobs:
         env | sort
         echo "running ls"
         ls $HOME
-  check python syntax
+  check python syntax:
     runs-on: ubuntu-lates
     steps:
     - name: Pyflakes Syntax Checker
