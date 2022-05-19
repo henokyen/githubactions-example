@@ -31,7 +31,7 @@ jobs:
       - name: Build ${{ env.FILE_NAME }} for ubuntu-latest
         run: |
           echo $HOME
-          exch $GITHUB_CONTEXT
+          echo $GITHUB_CONTEXT
           go build ${{ env.FILE_NAME }}.go
       - name: Upload artifact for linux
         uses: actions/upload-artifact@v1.0.0
