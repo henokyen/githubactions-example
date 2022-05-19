@@ -40,4 +40,5 @@ jobs:
     - name: display env
       run: |
         env | sort
+        echo "running ls"
         ls
