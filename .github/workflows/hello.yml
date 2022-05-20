@@ -32,7 +32,6 @@ jobs:
         run: |
           echo $HOME
           echo $GITHUB_WORKSPACE
-          go build $GITHUB_WORKSPACE/${{ env.FILE_NAME }}.go
       - name: Upload artifact for linux
         uses: actions/upload-artifact@v1.0.0
         with:
