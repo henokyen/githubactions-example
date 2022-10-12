@@ -30,7 +30,7 @@ jobs:
     #if: needs.check-inference-dir-change.check-inference-dir-output == 'true' && github.event.review.state == 'approved'
     steps:
       - run: |
-         echo needs.check-inference-dir-change.check-inference-dir-output
+         echo {{ needs.check-inference-dir-change.check-inference-dir-output }}
       - name: Check out code
         uses: actions/checkout@v3
     
