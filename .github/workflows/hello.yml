@@ -31,6 +31,7 @@ jobs:
       - run: |
          echo ${{ needs.check-inference-dir-change.check-inference-dir-output }}
          echo ${{ github.event.pull_request.base.ref }}
+         echo ${{ GITHUB_REF }}
       - name: Check out code
         uses: actions/checkout@v3
     
