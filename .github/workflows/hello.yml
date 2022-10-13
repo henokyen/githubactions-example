@@ -15,11 +15,11 @@ jobs:
         contents: read
         id-token: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout
         with:
           fetch-depth: 0
       - id: did-inference-change
-        run: echo "::set-output name=value::$(git diff --quiet HEAD origin/master  -- inference || echo true)"
+        run: echo "::set-output name=value::$(git diff --quiet HEAD origin/master  -- inference/ || echo true)"
     outputs:
      check-inference-dir-output: ${{ steps.did-inference-change.outputs.value }}
 
