@@ -3,35 +3,24 @@ name: Deploy on pull request
 on:
   pull_request_review:
     type: [submitted]
+    paths:
+      'inference'
 env:
   FILE_NAME: hello-server
 
-jobs:
-  check-inference-dir-change:
-    name: check-src-simple-inferenceService-dir-changed
-    runs-on: ubuntu-latest
-    permissions:
-        packages: write
-        contents: read
-        id-token: write
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-      - id: did-inference-change
-        run: echo "::set-output name=value::$(git diff --quiet HEAD origin/master  -- inference || echo true)"
-    outputs:
-     check-inference-dir-output: ${{ steps.did-inference-change.outputs.value }}
-
+jobs:  
   check-state:
     runs-on: ubuntu-latest
-    needs: check-inference-dir-change
-    if: needs.check-inference-dir-change.check-inference-dir-output == 'true' && github.event.review.state == 'approved' && github.event.pull_request.base.ref == 'master'
+    permissions:
+        contents: read
+        id-token: write
+
+    if: github.event.review.state == 'approved' && github.event.pull_request.base.ref == 'master'                                                                                                       
     steps:
       - run: |
-         echo ${{ needs.check-inference-dir-change.check-inference-dir-output }}
+         echo ${{ github.event.review.state }}
          echo ${{ github.event.pull_request.base.ref }}
-
+         
       - name: Check out code
         uses: actions/checkout@v3
     
