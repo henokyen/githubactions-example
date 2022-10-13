@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 2
       - id: did-inference-change
         run: echo "::set-output name=value::$(git diff --quiet HEAD origin/master  -- inference || echo true)"
     outputs:
@@ -31,7 +31,7 @@ jobs:
       - run: |
          echo ${{ needs.check-inference-dir-change.check-inference-dir-output }}
          echo ${{ github.event.pull_request.base.ref }}
-         echo ${{ GITHUB_REF }}
+
       - name: Check out code
         uses: actions/checkout@v3
     
