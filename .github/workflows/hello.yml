@@ -19,7 +19,10 @@ jobs:
         with:
           fetch-depth: 2
       - id: did-inference-change
-        run: echo "::set-output name=value::$(git diff --quiet HEAD origin/master  -- inference || echo true)"
+        run: |
+          val=$(git diff --quiet HEAD origin/master  -- inference || echo true)
+          echo $val
+          echo "::set-output name=value::$(git diff --quiet HEAD origin/master  -- inference || echo true)"
     outputs:
      check-inference-dir-output: ${{ steps.did-inference-change.outputs.value }}
 
@@ -29,7 +32,7 @@ jobs:
     if: needs.check-inference-dir-change.check-inference-dir-output == 'true' && github.event.review.state == 'approved' && github.event.pull_request.base.ref == 'master'
     steps:
       - run: |
-         echo ${{ needs.check-inference-dir-change.check-inference-dir-output }}
+         echo ${{ github.event.review.state }}
          echo ${{ github.event.pull_request.base.ref }}
 
       - name: Check out code
