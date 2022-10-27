@@ -3,8 +3,6 @@ name: Deploy on pull request
 on:
   pull_request_review:
     type: [submitted]
-    paths:
-      'inference'
 env:
   FILE_NAME: hello-server
 
@@ -20,11 +18,20 @@ jobs:
       - run: |
          echo ${{ github.event.review.state }}
          echo ${{ github.event.pull_request.base.ref }}
-         
+
       - name: Check out code
         uses: actions/checkout@v3
+
+      - name: is_inference_dir_change
+        uses: dorny/paths-filter@v2.2.1
+        id: inferene_dir_changes
+        with:
+          filters: |
+            inference:
+              - 'inference/*.*' 
     
       - name: Build ${{ env.FILE_NAME }} for ubuntu-latest
+        if: ${{ steps.inference_dir_change.outputs.inference == 'true' }}
         run: |
           echo $HOME
           echo $GITHUB_WORKSPACE
