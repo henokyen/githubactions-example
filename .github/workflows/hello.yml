@@ -3,8 +3,6 @@ name: Deploy on pull request
 on:
   pull_request_review:
     type: [submitted]
-    paths:
-      'inference'
 env:
   FILE_NAME: hello-server
 
@@ -20,11 +18,19 @@ jobs:
       - run: |
          echo ${{ github.event.review.state }}
          echo ${{ github.event.pull_request.base.ref }}
-         
+
       - name: Check out code
         uses: actions/checkout@v3
+
+      - name: is_inference_dir_change
+        uses: tj-actions/changed-files@v34
+        id: inference_dir_change
+        with:
+          files: |
+            inference/** 
     
       - name: Build ${{ env.FILE_NAME }} for ubuntu-latest
+        if: ${{ steps.inference_dir_change.outputs.any_changed == 'true' }}
         run: |
           echo $HOME
           echo $GITHUB_WORKSPACE
