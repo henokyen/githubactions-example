@@ -23,15 +23,14 @@ jobs:
         uses: actions/checkout@v3
 
       - name: is_inference_dir_change
-        uses: dorny/paths-filter@v2.2.1
-        id: inferene_dir_changes
+        uses: tj-actions/changed-files@v34
+        id: inference_dir_change
         with:
-          filters: |
-            inference:
-              - 'inference/*.*' 
+          files: |
+            inference/** 
     
       - name: Build ${{ env.FILE_NAME }} for ubuntu-latest
-        if: ${{ steps.inference_dir_change.outputs.inference == 'true' }}
+        if: ${{ steps.inference_dir_change.outputs.any_changed == 'true' }}
         run: |
           echo $HOME
           echo $GITHUB_WORKSPACE
