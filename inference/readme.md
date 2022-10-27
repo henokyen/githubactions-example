@@ -1,5 +1,1 @@
-This is first chage inside readme file 
-now checkstate job should run
-not yet
-still trying
-another try
+This is a change inside the inference directory
