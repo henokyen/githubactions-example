@@ -21,6 +21,8 @@ jobs:
 
       - name: Check out code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
       - name: is_inference_dir_change
         uses: tj-actions/changed-files@v34
